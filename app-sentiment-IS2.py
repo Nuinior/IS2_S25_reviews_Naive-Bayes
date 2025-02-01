@@ -30,6 +30,7 @@ if st.button("Analyze Sentiment"):
 
         def preprocess_text(text):
             """ฟังก์ชันสำหรับทำ Text Preprocessing"""
+            nltk.download('punkt')  # ✅ โหลด punkt ภายในฟังก์ชัน เพื่อป้องกันปัญหา
             tokens = word_tokenize(text.lower())  # Tokenization
             tokens = [word for word in tokens if word.isalnum()]  # ลบเครื่องหมาย
             tokens = [word for word in tokens if word not in stop_words]  # ลบ Stopwords
@@ -46,4 +47,3 @@ if st.button("Analyze Sentiment"):
 
     else:
         st.write("Please enter some text.")
-
