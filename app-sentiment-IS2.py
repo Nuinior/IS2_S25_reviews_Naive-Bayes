@@ -36,16 +36,16 @@ if st.button("Analyze Sentiment"):
             except LookupError:
                 return False  # ไม่สำเร็จ
         
-        def preprocess_text(text):
-        """ฟังก์ชันสำหรับทำ Text Preprocessing"""
-        if not download_punkt():  # ตรวจสอบว่าดาวน์โหลดสำเร็จหรือไม่
+        def preprocess_text(text):  # บรรทัดที่ 39
+        #"""ฟังก์ชันสำหรับทำ Text Preprocessing"""
+        if not download_punkt():
             st.error("Error: punkt resource not found. Please check your internet connection and try again. If the problem persists, consider using a pre-built Docker image with NLTK resources.")
-            return ""  # หรือจัดการข้อผิดพลาดในวิธีอื่นที่เหมาะสม
+        return ""
 
-        tokens = word_tokenize(text.lower())
-        tokens = [word for word in tokens if word.isalnum()]
-        tokens = [word for word in tokens if word not in stop_words]
-        return " ".join(tokens)
+            tokens = word_tokenize(text.lower())  # เยื้อง 4 ช่องว่าง
+            tokens = [word for word in tokens if word.isalnum()]  # เยื้อง 4 ช่องว่าง
+            tokens = [word for word in tokens if word not in stop_words]  # เยื้อง 4 ช่องว่าง
+            return " ".join(tokens)  # เยื้อง 4 ช่องว่าง
 
         # 🔹 ทำ Preprocessing ข้อความ
         processed_text = preprocess_text(translated_text)
