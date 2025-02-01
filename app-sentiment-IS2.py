@@ -24,22 +24,21 @@ if st.button("Analyze Sentiment"):
         translated_text = translate_text(user_input)
 
         import nltk
-        nltk.download('punkt')  # ⬅️ โหลด punkt tokenization model   
+        nltk.download('punkt')  # โหลด punkt tokenization model
         from nltk.tokenize import word_tokenize
         from nltk.corpus import stopwords
         import string
-        
 
-        nltk.download('punkt')
         nltk.download('stopwords')
-        
         stop_words = set(stopwords.words('english'))
 
         def preprocess_text(text):
-            tokens = word_tokenize(text.lower())
-            tokens = [word for word in tokens if word.isalnum()]
-            tokens = [word for word in tokens if word not in stop_words]
-            return " ".join(tokens)
+        nltk.download('punkt')  # ⬅️ โหลด punkt ภายในฟังก์ชัน (กัน Error)
+        tokens = word_tokenize(text.lower())
+        tokens = [word for word in tokens if word.isalnum()]
+        tokens = [word for word in tokens if word not in stop_words]
+        return " ".join(tokens)
+
 
         processed_text = preprocess_text(translated_text)
         prediction = model.predict([processed_text])[0]
