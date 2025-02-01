@@ -28,18 +28,24 @@ if st.button("Analyze Sentiment"):
         
         stop_words = set(stopwords.words('english'))
 
-        def preprocess_text(text):  # Line 31 (as referenced in the error)
-        #"""ฟังก์ชันสำหรับทำ Text Preprocessing"""
+        @st.cache_data  # ใช้ caching เพื่อดาวน์โหลด punkt แค่ครั้งเดียว
+        def download_punkt():
             try:
                 nltk.download('punkt')
+                return True  # สำเร็จ
             except LookupError:
-                st.error("Error: punkt resource not found. Please check your internet connection and try again.")
-                return ""
+                return False  # ไม่สำเร็จ
+        
+        def preprocess_text(text):
+        """ฟังก์ชันสำหรับทำ Text Preprocessing"""
+        if not download_punkt():  # ตรวจสอบว่าดาวน์โหลดสำเร็จหรือไม่
+            st.error("Error: punkt resource not found. Please check your internet connection and try again. If the problem persists, consider using a pre-built Docker image with NLTK resources.")
+            return ""  # หรือจัดการข้อผิดพลาดในวิธีอื่นที่เหมาะสม
 
-            tokens = word_tokenize(text.lower())
-            tokens = [word for word in tokens if word.isalnum()]
-            tokens = [word for word in tokens if word not in stop_words]
-            return " ".join(tokens)
+        tokens = word_tokenize(text.lower())
+        tokens = [word for word in tokens if word.isalnum()]
+        tokens = [word for word in tokens if word not in stop_words]
+        return " ".join(tokens)
 
         # 🔹 ทำ Preprocessing ข้อความ
         processed_text = preprocess_text(translated_text)
