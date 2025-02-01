@@ -9,6 +9,10 @@ from nltk.corpus import stopwords
 nltk.download('punkt')
 nltk.download('stopwords')
 
+rm -rf ~/nltk_data/tokenizers/punkt
+python -c "import nltk; nltk.download('punkt')"
+
+
 # ✅ โหลดโมเดล Machine Learning
 model = joblib.load("sentiment_model_IS2.pkl")
 
